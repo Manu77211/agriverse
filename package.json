@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
+    "@heroicons/react": "^2.2.0",
     "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/supabase-js": "^2.39.0",
     "axios": "^1.6.5",
     "clsx": "^2.1.0",
+    "framer-motion": "^12.23.26",
     "lucide-react": "^0.303.0",
     "next": "^15.0.0",
     "openai": "^4.24.0",

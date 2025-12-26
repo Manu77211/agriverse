@@ -1,114 +1,148 @@
-import Link from 'next/link';
-import { Leaf, Mail, Phone, MapPin } from 'lucide-react';
+'use client';
 
-/**
- * Footer Component
- * - Company info and branding
- * - Quick links to pages
- * - Contact information
- * - Copyright and credits
- * - Mobile responsive with grid layout
- */
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Leaf, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const footerLinks = {
+    product: [
+      { label: 'Dashboard', href: '/dashboard' },
+      { label: 'Crop Analysis', href: '/dashboard' },
+      { label: 'History', href: '/history' },
+      { label: 'Profile', href: '/profile' },
+    ],
+    resources: [
+      { label: 'Documentation', href: '#' },
+      { label: 'API Access', href: '#' },
+      { label: 'Support', href: '#' },
+      { label: 'Blog', href: '#' },
+    ],
+    company: [
+      { label: 'About Us', href: '#' },
+      { label: 'Careers', href: '#' },
+      { label: 'Privacy Policy', href: '#' },
+      { label: 'Terms of Service', href: '#' },
+    ],
+  };
+
+  const socialLinks = [
+    { icon: Facebook, href: '#', label: 'Facebook' },
+    { icon: Twitter, href: '#', label: 'Twitter' },
+    { icon: Instagram, href: '#', label: 'Instagram' },
+    { icon: Youtube, href: '#', label: 'Youtube' },
+  ];
+
   return (
-    <footer className="bg-earth-800 text-white mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand Section */}
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="bg-primary-500 p-2 rounded-lg">
+    <footer className="relative bg-gradient-to-b from-gray-900 via-gray-900 to-black text-white overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-green-500/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
+        {/* Top section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+          {/* Brand */}
+          <div className="lg:col-span-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-3 mb-6"
+            >
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
                 <Leaf className="w-6 h-6 text-white" />
               </div>
-              <span className="text-2xl font-bold">
-                Krishi <span className="text-primary-400">Sakhi</span>
-              </span>
-            </div>
-            <p className="text-earth-200 mb-4 max-w-md">
-              AI-powered farming assistant helping Indian farmers make data-driven
-              decisions for better crop yields and profits.
+              <div>
+                <span className="text-2xl font-bold">Krishi Sakhi</span>
+                <p className="text-sm text-gray-400">AI Farming Assistant</p>
+              </div>
+            </motion.div>
+            <p className="text-gray-400 leading-relaxed mb-6 max-w-md">
+              Empowering Indian farmers with AI-powered crop recommendations, 
+              weather analysis, and market insights for better agricultural decisions.
             </p>
-            <div className="flex flex-col space-y-2 text-earth-300">
-              <div className="flex items-center space-x-2">
-                <MapPin className="w-4 h-4" />
-                <span>Pan-India Coverage</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Mail className="w-4 h-4" />
-                <span>support@krishisakhi.com</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Phone className="w-4 h-4" />
-                <span>1800-XXX-XXXX (Toll Free)</span>
+            
+            {/* Contact Info */}
+            <div className="space-y-3">
+              <a href="mailto:support@krishisakhi.in" className="flex items-center gap-3 text-gray-400 hover:text-green-400 transition-colors">
+                <Mail className="w-5 h-5" />
+                support@krishisakhi.in
+              </a>
+              <a href="tel:+911800123456" className="flex items-center gap-3 text-gray-400 hover:text-green-400 transition-colors">
+                <Phone className="w-5 h-5" />
+                1800-123-456 (Toll Free)
+              </a>
+              <div className="flex items-center gap-3 text-gray-400">
+                <MapPin className="w-5 h-5" />
+                Bengaluru, Karnataka, India
               </div>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-earth-300 hover:text-primary-400 transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/dashboard" className="text-earth-300 hover:text-primary-400 transition-colors">
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link href="/history" className="text-earth-300 hover:text-primary-400 transition-colors">
-                  History
-                </Link>
-              </li>
-              <li>
-                <Link href="/profile" className="text-earth-300 hover:text-primary-400 transition-colors">
-                  Profile
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Resources</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-earth-300 hover:text-primary-400 transition-colors">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-earth-300 hover:text-primary-400 transition-colors">
-                  How It Works
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-earth-300 hover:text-primary-400 transition-colors">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-earth-300 hover:text-primary-400 transition-colors">
-                  Terms of Service
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Links */}
+          {Object.entries(footerLinks).map(([category, links], idx) => (
+            <motion.div
+              key={category}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+            >
+              <h3 className="text-lg font-semibold mb-6 capitalize">{category}</h3>
+              <ul className="space-y-3">
+                {links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-gray-400 hover:text-green-400 transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-earth-700 mt-8 pt-8 text-center text-earth-400">
-          <p>
-            © {currentYear} Krishi Sakhi. All rights reserved. Built with 💚 for Indian farmers.
-          </p>
-          <p className="text-sm mt-2">
-            Powered by OpenAI GPT-4o-mini, OpenWeather, AgriStack, and eNAM APIs
-          </p>
+        {/* Divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent mb-8" />
+
+        {/* Bottom section */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+          {/* Copyright */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-gray-400 text-sm"
+          >
+            © {currentYear} Krishi Sakhi. Made with 💚 for Indian Farmers
+          </motion.p>
+
+          {/* Social Links */}
+          <div className="flex items-center gap-4">
+            {socialLinks.map((social, idx) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                whileHover={{ scale: 1.2, y: -2 }}
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-green-500 transition-all duration-300"
+                aria-label={social.label}
+              >
+                <social.icon className="w-5 h-5" />
+              </motion.a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

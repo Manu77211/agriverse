@@ -1,15 +1,14 @@
 'use client';
 
-import { TrendingUp, TrendingDown, Droplet, Calendar, Sprout, IndianRupee } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { TrendingUp, Droplet, Sprout, IndianRupee, Sparkles, Award } from 'lucide-react';
 import { CropRecommendation } from '@/utils/types';
 
 /**
- * CropRecommendationCard Component
+ * CropRecommendationCard Component - Modern Animated Version
  * - Displays individual crop recommendation with detailed stats
+ * - Beautiful hover effects and animated progress bars
  * - Shows: Rank badge, crop name, profit, yield, market price
- * - Visual indicators for soil/climate suitability scores
- * - Water requirement icon
- * - AI reasoning explanation
  */
 
 interface CropRecommendationCardProps {
@@ -18,138 +17,205 @@ interface CropRecommendationCardProps {
 }
 
 export default function CropRecommendationCard({ crop, rank }: CropRecommendationCardProps) {
-  // Medal colors for top 3 ranks
-  const rankColors = {
-    1: 'bg-yellow-500 text-white', // Gold
-    2: 'bg-gray-400 text-white',   // Silver
-    3: 'bg-amber-600 text-white',  // Bronze
+  // Medal colors and icons for top 3 ranks
+  const rankConfig = {
+    1: { 
+      bg: 'from-yellow-400 to-amber-500', 
+      text: 'text-white',
+      icon: '🥇',
+      glow: 'from-yellow-500 to-amber-500'
+    },
+    2: { 
+      bg: 'from-gray-300 to-gray-400', 
+      text: 'text-white',
+      icon: '🥈',
+      glow: 'from-gray-400 to-gray-500'
+    },
+    3: { 
+      bg: 'from-amber-500 to-orange-600', 
+      text: 'text-white',
+      icon: '🥉',
+      glow: 'from-amber-500 to-orange-500'
+    },
   };
 
-  const rankColor = rankColors[rank as keyof typeof rankColors] || 'bg-primary-500 text-white';
-
-  // Water requirement colors
-  const waterColors = {
-    Low: 'text-blue-400',
-    Medium: 'text-blue-500',
-    High: 'text-blue-600',
+  const config = rankConfig[rank as keyof typeof rankConfig] || { 
+    bg: 'from-green-500 to-emerald-500', 
+    text: 'text-white',
+    icon: '🌱',
+    glow: 'from-green-500 to-emerald-500'
   };
+
+  // Water requirement config
+  const waterConfig = {
+    Low: { color: 'text-blue-400', bg: 'bg-blue-50', drops: 1 },
+    Medium: { color: 'text-blue-500', bg: 'bg-blue-100', drops: 2 },
+    High: { color: 'text-blue-600', bg: 'bg-blue-200', drops: 3 },
+  };
+
+  const water = waterConfig[crop.waterRequirement] || waterConfig.Medium;
 
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow p-6 border-2 border-gray-100 relative overflow-hidden">
-      {/* Rank Badge */}
-      <div className={`absolute top-0 right-0 ${rankColor} px-4 py-2 rounded-bl-xl font-bold text-lg`}>
-        #{rank}
-      </div>
-
-      {/* Crop Name */}
-      <div className="mb-4 pr-16">
-        <h3 className="text-2xl font-bold text-gray-900 flex items-center space-x-2">
-          <Sprout className="w-6 h-6 text-primary-600" />
-          <span>{crop.cropName}</span>
-        </h3>
-        <p className="text-sm text-gray-600 mt-1">
-          {crop.growthDuration} days growth cycle
-        </p>
-      </div>
-
-      {/* Key Metrics Grid */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        {/* Expected Profit */}
-        <div className="bg-primary-50 rounded-lg p-4">
-          <div className="flex items-center space-x-2 text-primary-700 mb-1">
-            <TrendingUp className="w-4 h-4" />
-            <span className="text-xs font-medium uppercase">Profit/Acre</span>
-          </div>
-          <p className="text-2xl font-bold text-primary-900 flex items-center">
-            <IndianRupee className="w-5 h-5" />
-            {crop.expectedProfitPerAcre.toLocaleString('en-IN')}
-          </p>
+    <motion.div
+      whileHover={{ y: -8, scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+      className="relative group"
+    >
+      {/* Background glow on hover */}
+      <div className={`absolute -inset-1 bg-gradient-to-r ${config.glow} rounded-2xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300`} />
+      
+      <div className="relative bg-white rounded-2xl shadow-lg p-6 border border-gray-100 overflow-hidden">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-green-500 rounded-full -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-emerald-500 rounded-full translate-y-1/2 -translate-x-1/2" />
         </div>
 
-        {/* Yield */}
-        <div className="bg-green-50 rounded-lg p-4">
-          <div className="flex items-center space-x-2 text-green-700 mb-1">
-            <Sprout className="w-4 h-4" />
-            <span className="text-xs font-medium uppercase">Yield/Acre</span>
-          </div>
-          <p className="text-2xl font-bold text-green-900">
-            {crop.expectedYieldPerAcre} qtl
-          </p>
-        </div>
-      </div>
+        {/* Rank Badge */}
+        <motion.div
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{ scale: 1, rotate: 0 }}
+          transition={{ type: "spring", duration: 0.8 }}
+          className={`absolute top-4 right-4 w-14 h-14 rounded-xl bg-gradient-to-br ${config.bg} flex items-center justify-center shadow-lg`}
+        >
+          <span className="text-2xl">{config.icon}</span>
+        </motion.div>
 
-      {/* Market Price */}
-      <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-        <div className="flex justify-between items-center">
+        {/* Crop Name */}
+        <div className="mb-6 pr-20">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
+              <Sprout className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900">{crop.cropName}</h3>
+              <p className="text-sm text-gray-500">{crop.growthDuration} days cycle</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Key Metrics */}
+        <div className="grid grid-cols-2 gap-3 mb-5">
+          {/* Expected Profit */}
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border border-green-100"
+          >
+            <div className="flex items-center gap-2 text-green-600 mb-2">
+              <TrendingUp className="w-4 h-4" />
+              <span className="text-xs font-semibold uppercase tracking-wide">Profit/Acre</span>
+            </div>
+            <p className="text-xl font-bold text-green-700 flex items-center">
+              <IndianRupee className="w-4 h-4" />
+              {crop.expectedProfitPerAcre.toLocaleString('en-IN')}
+            </p>
+          </motion.div>
+
+          {/* Yield */}
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-4 border border-amber-100"
+          >
+            <div className="flex items-center gap-2 text-amber-600 mb-2">
+              <Sprout className="w-4 h-4" />
+              <span className="text-xs font-semibold uppercase tracking-wide">Yield/Acre</span>
+            </div>
+            <p className="text-xl font-bold text-amber-700">
+              {crop.expectedYieldPerAcre} <span className="text-sm font-normal">qtl</span>
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Market Price Tag */}
+        <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl mb-5">
           <span className="text-sm text-gray-600">Market Price</span>
           <span className="text-lg font-bold text-gray-900 flex items-center">
             <IndianRupee className="w-4 h-4" />
-            {crop.marketPricePerKg}/kg
+            {crop.marketPricePerKg}<span className="text-sm font-normal text-gray-500">/kg</span>
           </span>
         </div>
-      </div>
 
-      {/* Suitability Scores */}
-      <div className="space-y-3 mb-4">
-        {/* Soil Suitability */}
-        <div>
-          <div className="flex justify-between text-sm mb-1">
-            <span className="text-gray-600">Soil Suitability</span>
-            <span className="font-medium text-gray-900">{crop.soilSuitability}%</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div
-              className="bg-earth-500 h-2 rounded-full transition-all"
-              style={{ width: `${crop.soilSuitability}%` }}
-            ></div>
-          </div>
+        {/* Suitability Progress Bars */}
+        <div className="space-y-4 mb-5">
+          <ProgressBar 
+            label="Soil Suitability" 
+            value={crop.soilSuitability} 
+            color="from-amber-500 to-orange-500"
+            bgColor="bg-amber-100"
+          />
+          <ProgressBar 
+            label="Climate Match" 
+            value={crop.climateSuitability} 
+            color="from-blue-500 to-cyan-500"
+            bgColor="bg-blue-100"
+          />
+          <ProgressBar 
+            label="Market Demand" 
+            value={crop.marketDemand} 
+            color="from-purple-500 to-pink-500"
+            bgColor="bg-purple-100"
+          />
         </div>
 
-        {/* Climate Suitability */}
-        <div>
-          <div className="flex justify-between text-sm mb-1">
-            <span className="text-gray-600">Climate Suitability</span>
-            <span className="font-medium text-gray-900">{crop.climateSuitability}%</span>
+        {/* Water Requirement */}
+        <div className={`flex items-center gap-3 p-3 ${water.bg} rounded-xl mb-5`}>
+          <div className="flex gap-1">
+            {[...Array(3)].map((_, i) => (
+              <Droplet
+                key={i}
+                className={`w-4 h-4 transition-all ${i < water.drops ? water.color : 'text-gray-300'}`}
+                fill={i < water.drops ? 'currentColor' : 'none'}
+              />
+            ))}
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div
-              className="bg-sky-500 h-2 rounded-full transition-all"
-              style={{ width: `${crop.climateSuitability}%` }}
-            ></div>
-          </div>
+          <span className="text-sm text-gray-700">
+            Water: <strong>{crop.waterRequirement}</strong>
+          </span>
         </div>
 
-        {/* Market Demand */}
-        <div>
-          <div className="flex justify-between text-sm mb-1">
-            <span className="text-gray-600">Market Demand</span>
-            <span className="font-medium text-gray-900">{crop.marketDemand}%</span>
+        {/* AI Reasoning */}
+        <div className="border-t border-gray-100 pt-4">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+              <Sparkles className="w-3 h-3 text-white" />
+            </div>
+            <h4 className="text-sm font-bold text-gray-900">AI Insight</h4>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div
-              className="bg-primary-500 h-2 rounded-full transition-all"
-              style={{ width: `${crop.marketDemand}%` }}
-            ></div>
-          </div>
+          <p className="text-sm text-gray-600 leading-relaxed">
+            {crop.reasoning}
+          </p>
         </div>
       </div>
+    </motion.div>
+  );
+}
 
-      {/* Water Requirement */}
-      <div className="flex items-center space-x-2 mb-4 text-sm">
-        <Droplet className={`w-5 h-5 ${waterColors[crop.waterRequirement]}`} />
-        <span className="text-gray-600">
-          Water Requirement: <strong className="text-gray-900">{crop.waterRequirement}</strong>
-        </span>
+// Animated Progress Bar Component
+function ProgressBar({ 
+  label, 
+  value, 
+  color, 
+  bgColor 
+}: { 
+  label: string; 
+  value: number; 
+  color: string; 
+  bgColor: string;
+}) {
+  return (
+    <div>
+      <div className="flex justify-between text-sm mb-1.5">
+        <span className="text-gray-600">{label}</span>
+        <span className="font-bold text-gray-900">{value}%</span>
       </div>
-
-      {/* AI Reasoning */}
-      <div className="border-t border-gray-200 pt-4">
-        <h4 className="text-sm font-semibold text-gray-900 mb-2">
-          🤖 AI Recommendation
-        </h4>
-        <p className="text-sm text-gray-700 leading-relaxed">
-          {crop.reasoning}
-        </p>
+      <div className={`w-full ${bgColor} rounded-full h-2.5 overflow-hidden`}>
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: `${value}%` }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className={`h-full bg-gradient-to-r ${color} rounded-full`}
+        />
       </div>
     </div>
   );
