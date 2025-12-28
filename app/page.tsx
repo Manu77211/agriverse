@@ -85,17 +85,6 @@ export default function HomePage() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
           <div className="text-center">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 border border-green-200 mb-8"
-            >
-              <Sparkles className="w-4 h-4 text-green-600" />
-              <span className="text-sm font-medium text-green-700">Powered by Google Gemini AI</span>
-            </motion.div>
-
             {/* Main Heading */}
             <AnimatedHeading className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
               Smart Farming with{' '}
