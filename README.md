@@ -8,7 +8,7 @@ flowchart TD
         S5["🍃 Leaf Wetness<br>Sensor"]
     end
 
-    subgraph EDGE["⚙️ Edge Processing - Raspberry Pi"]
+    subgraph EDGE["⚙️ Edge Processing"]
         E1["📥 Data Collection<br>& Aggregation"]
         E2["🔧 Noise Filtering<br>& Normalization"]
         E3["📊 Feature Extraction<br>& Derived Indicators"]
@@ -25,7 +25,7 @@ flowchart TD
         M2["💰 Profitability<br>Ranking Engine"]
     end
 
-    subgraph OUTPUT["🖥️ User Interface & Advisory"]
+    subgraph OUTPUT["🖥️ User Interface"]
         O1["📋 Web Dashboard"]
         O2["✅ Crop & Variety<br>Recommendation"]
         O3["📊 Risk Indicators<br>& Alerts"]
