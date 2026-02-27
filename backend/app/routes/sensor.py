@@ -12,6 +12,7 @@ from app.schemas.sensor import (
     SensorUploadResponse,
     SensorHealthResponse,
 )
+from app.services import sensor_service
 
 router = APIRouter(prefix="/sensor", tags=["Sensor"])
 
@@ -23,26 +24,39 @@ router = APIRouter(prefix="/sensor", tags=["Sensor"])
     summary="Upload sensor data from Raspberry Pi",
     description=(
         "Receives a JSON payload from the Pi containing raw sensor readings. "
-        "Validates device authentication, checks data ranges, stores in sensor_data table, "
-        "and triggers feature engineering to compute derived metrics."
+        "Validates device authentication, checks data ranges, stores in sensor_data table."
     ),
 )
 async def upload_sensor_data(payload: SensorUploadRequest):
     """
     POST /sensor/upload
-    
+
     Called by Raspberry Pi every 5 minutes.
-    Flow: validate device → store raw data → compute derived metrics → return status
-    
-    TODO: Implement in Phase 3 (Task 9-10)
+    Flow: validate device → validate data → store in DB → return status
     """
-    # Placeholder — will be implemented in Phase 3
+    readings = {
+        "soil_moisture": payload.soil_moisture,
+        "soil_temp": payload.soil_temp,
+        "soil_ec": payload.soil_ec,
+        "air_temp": payload.air_temp,
+        "humidity": payload.humidity,
+        "leaf_wetness": payload.leaf_wetness,
+        "battery_level": payload.battery_level,
+    }
+
+    result = await sensor_service.process_upload(
+        device_id=payload.device_id,
+        device_secret=payload.device_secret,
+        readings=readings,
+    )
+
     return SensorUploadResponse(
         success=True,
-        message="Sensor upload endpoint ready — implementation coming in Phase 3",
-        sensor_data_id=0,
-        farm_id="placeholder",
-        is_valid=True,
+        message="Sensor data received and stored",
+        sensor_data_id=result["sensor_data_id"],
+        farm_id=result["farm_id"],
+        is_valid=result["is_valid"],
+        warnings=result["warnings"],
     )
 
 
@@ -58,15 +72,46 @@ async def upload_sensor_data(payload: SensorUploadRequest):
 async def sensor_health(farm_id: str):
     """
     GET /sensor/health/{farm_id}
-    
+
     Checks if the Pi sent data recently.
-    
-    TODO: Implement in Phase 3 (Task 11)
+    Returns online/offline/warning status + battery level + readings count.
     """
-    # Placeholder
+    result = await sensor_service.get_sensor_health(farm_id)
+
     return SensorHealthResponse(
-        farm_id=farm_id,
-        is_online=False,
-        status="unknown",
-        readings_today=0,
+        farm_id=result["farm_id"],
+        device_id=result.get("device_id"),
+        is_online=result["is_online"],
+        last_reading_at=result.get("last_reading_at"),
+        battery_level=result.get("battery_level"),
+        readings_today=result["readings_today"],
+        status=result["status"],
     )
+
+
+@router.get(
+    "/latest/{farm_id}",
+    summary="Get the latest sensor reading for a farm",
+)
+async def get_latest(farm_id: str):
+    """GET /sensor/latest/{farm_id} — most recent sensor reading."""
+    readings = await sensor_service.get_latest_readings(farm_id, limit=1)
+    if not readings:
+        return {"success": True, "data": None, "message": "No sensor data found for this farm"}
+    return {"success": True, "data": readings[0]}
+
+
+@router.get(
+    "/history/{farm_id}",
+    summary="Get sensor reading history for a farm",
+)
+async def get_history(farm_id: str, hours: int = 24):
+    """GET /sensor/history/{farm_id}?hours=24 — readings within last N hours."""
+    readings = await sensor_service.get_sensor_history(farm_id, hours=hours)
+    return {
+        "success": True,
+        "farm_id": farm_id,
+        "hours": hours,
+        "count": len(readings),
+        "data": readings,
+    }

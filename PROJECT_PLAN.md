@@ -444,25 +444,25 @@ CREATE POLICY "Public read varieties" ON crop_varieties FOR SELECT USING (true);
 ### PHASE 1 — Foundation
 | # | Task | What It Does | Status |
 |---|------|-------------|--------|
-| 1 | Project Restructure | Move Next.js into `frontend/`, create `backend/` skeleton | ⬜ |
-| 2 | Database Schema Design | Write SQL for all 7 tables (see Section 5) | ⬜ |
-| 3 | Supabase Tables Setup | Execute SQL in Supabase, enable RLS policies | ⬜ |
-| 4 | Update LICENSE | Change to proprietary to protect IP | ⬜ |
+| 1 | Project Restructure | Move Next.js into `frontend/`, create `backend/` skeleton | ✅ |
+| 2 | Database Schema Design | Write SQL for all 7 tables (see Section 5) | ✅ |
+| 3 | Supabase Tables Setup | Execute SQL in Supabase, enable RLS policies | ✅ |
+| 4 | Update LICENSE | Change to proprietary to protect IP | ✅ |
 
 ### PHASE 2 — Backend Skeleton
 | # | Task | What It Does | Status |
 |---|------|-------------|--------|
-| 5 | Python Backend Setup | FastAPI project with routes/, services/, models/, schemas/, middleware/ | ⬜ |
-| 6 | Config + Logging + Error Middleware | .env handler, JSON logging, global error handler | ⬜ |
-| 7 | Pydantic Schemas | Validation classes for sensor data, recommendations, forecasts | ⬜ |
-| 8 | Database Connection Module | Python module to connect to Supabase PostgreSQL | ⬜ |
+| 5 | Python Backend Setup | FastAPI project with routes/, services/, models/, schemas/, middleware/ | ✅ |
+| 6 | Config + Logging + Error Middleware | .env handler, JSON logging, global error handler | ✅ |
+| 7 | Pydantic Schemas | Validation classes for sensor data, recommendations, forecasts | ✅ |
+| 8 | Database Connection Module | Python module to connect to Supabase PostgreSQL | ✅ |
 
 ### PHASE 3 — Sensor Pipeline
 | # | Task | What It Does | Status |
 |---|------|-------------|--------|
-| 9 | Sensor Ingestion API | `POST /sensor/upload` receives JSON from Pi, validates, stores | ⬜ |
-| 10 | Sensor Service | Business logic — validates ranges, detects anomalies, stores data | ⬜ |
-| 11 | Sensor Health Check | `GET /sensor/health/{farm_id}` checks if Pi sent data in last 15 min | ⬜ |
+| 9 | Sensor Ingestion API | `POST /sensor/upload` receives JSON from Pi, validates, stores | ✅ |
+| 10 | Sensor Service | Business logic — validates ranges, detects anomalies, stores data | ✅ |
+| 11 | Sensor Health Check | `GET /sensor/health/{farm_id}` checks if Pi sent data in last 15 min | ✅ |
 
 ### PHASE 4 — Feature Engineering
 | # | Task | What It Does | Status |
