@@ -25,6 +25,16 @@ export default function AnalyzerForm({ onAnalysisComplete }: AnalyzerFormProps) 
   const [error, setError] = useState('');
   const [currentStep, setCurrentStep] = useState(0);
 
+  // Simulated Hardware / Sensor state inputs
+  const [useManualSensors, setUseManualSensors] = useState(false);
+  const [nitrogen, setNitrogen] = useState('');
+  const [phosphorus, setPhosphorus] = useState('');
+  const [potassium, setPotassium] = useState('');
+  const [ph, setPh] = useState('');
+  const [temperature, setTemperature] = useState('');
+  const [humidity, setHumidity] = useState('');
+  const [rainfall, setRainfall] = useState('');
+
   const states = getAllStates();
   const districts = selectedState ? getDistrictsByState(selectedState) : [];
 
@@ -48,6 +58,50 @@ export default function AnalyzerForm({ onAnalysisComplete }: AnalyzerFormProps) 
       return;
     }
 
+    const payload: any = {
+      district: selectedDistrict,
+      state: selectedState,
+      acres: Number(acres),
+    };
+
+    if (useManualSensors) {
+      if (!nitrogen || !phosphorus || !potassium || !ph || !temperature || !humidity || !rainfall) {
+        setError('Please fill in all hardware sensor inputs');
+        return;
+      }
+      
+      const nNum = Number(nitrogen);
+      const pNum = Number(phosphorus);
+      const kNum = Number(potassium);
+      const phNum = Number(ph);
+      const tempNum = Number(temperature);
+      const humNum = Number(humidity);
+      const rainNum = Number(rainfall);
+
+      if (isNaN(nNum) || isNaN(pNum) || isNaN(kNum) || isNaN(phNum) || isNaN(tempNum) || isNaN(humNum) || isNaN(rainNum)) {
+        setError('Sensor inputs must be valid numbers');
+        return;
+      }
+
+      if (phNum < 0 || phNum > 14) {
+        setError('Soil pH must be between 0 and 14');
+        return;
+      }
+
+      if (humNum < 0 || humNum > 100) {
+        setError('Humidity must be between 0 and 100%');
+        return;
+      }
+
+      payload.nitrogen = nNum;
+      payload.phosphorus = pNum;
+      payload.potassium = kNum;
+      payload.ph = phNum;
+      payload.temperature = tempNum;
+      payload.humidity = humNum;
+      payload.rainfall = rainNum;
+    }
+
     setLoading(true);
     setCurrentStep(0);
 
@@ -60,15 +114,12 @@ export default function AnalyzerForm({ onAnalysisComplete }: AnalyzerFormProps) 
       const response = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          district: selectedDistrict,
-          state: selectedState,
-          acres: Number(acres),
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        throw new Error('Analysis failed');
+        const errJson = await response.json().catch(() => ({}));
+        throw new Error(errJson.error || 'Analysis failed');
       }
 
       const result: AnalysisResult = await response.json();
@@ -76,8 +127,8 @@ export default function AnalyzerForm({ onAnalysisComplete }: AnalyzerFormProps) 
       if (onAnalysisComplete) {
         onAnalysisComplete(result);
       }
-    } catch (err) {
-      setError('Failed to analyze. Please try again.');
+    } catch (err: any) {
+      setError(err.message || 'Failed to analyze. Please try again.');
       console.error('Analysis error:', err);
     } finally {
       clearInterval(stepInterval);
@@ -193,6 +244,126 @@ export default function AnalyzerForm({ onAnalysisComplete }: AnalyzerFormProps) 
             Enter the size of your farmland (1-1000 acres)
           </p>
         </motion.div>
+
+        {/* Toggle Manual Sensor Simulation */}
+        <div className="flex items-center justify-between p-4 rounded-xl bg-green-50 border-2 border-green-200">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-green-500 flex items-center justify-center text-white">
+              <Brain className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-green-900">Simulate Hardware/Sensor Inputs</p>
+              <p className="text-xs text-green-700">Enter raw soil and weather metrics manually</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setUseManualSensors(!useManualSensors)}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${
+              useManualSensors ? 'bg-green-600' : 'bg-gray-200'
+            }`}
+          >
+            <span
+              className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                useManualSensors ? 'translate-x-6' : 'translate-x-1'
+              }`}
+            />
+          </button>
+        </div>
+
+        {/* Manual Sensor Fields */}
+        <AnimatePresence>
+          {useManualSensors && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="space-y-4 overflow-hidden border-2 border-gray-100 p-4 rounded-xl bg-gray-50/50"
+            >
+              <p className="text-sm font-bold text-gray-800 mb-2">Sensor Outputs (NPK & Climatic Metrics)</p>
+              
+              <div className="grid grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Nitrogen (N)</label>
+                  <input
+                    type="number"
+                    value={nitrogen}
+                    onChange={(e) => setNitrogen(e.target.value)}
+                    placeholder="e.g. 80"
+                    className="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none text-gray-900 font-medium"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Phosphorus (P)</label>
+                  <input
+                    type="number"
+                    value={phosphorus}
+                    onChange={(e) => setPhosphorus(e.target.value)}
+                    placeholder="e.g. 45"
+                    className="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none text-gray-900 font-medium"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Potassium (K)</label>
+                  <input
+                    type="number"
+                    value={potassium}
+                    onChange={(e) => setPotassium(e.target.value)}
+                    placeholder="e.g. 40"
+                    className="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none text-gray-900 font-medium"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Soil pH</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={ph}
+                    onChange={(e) => setPh(e.target.value)}
+                    placeholder="e.g. 6.5"
+                    className="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none text-gray-900 font-medium"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Rainfall (mm)</label>
+                  <input
+                    type="number"
+                    value={rainfall}
+                    onChange={(e) => setRainfall(e.target.value)}
+                    placeholder="e.g. 150"
+                    className="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none text-gray-900 font-medium"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Temperature (°C)</label>
+                  <input
+                    type="number"
+                    value={temperature}
+                    onChange={(e) => setTemperature(e.target.value)}
+                    placeholder="e.g. 28"
+                    className="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none text-gray-900 font-medium"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-600 mb-1">Humidity (%)</label>
+                  <input
+                    type="number"
+                    value={humidity}
+                    onChange={(e) => setHumidity(e.target.value)}
+                    placeholder="e.g. 75"
+                    className="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 outline-none text-gray-900 font-medium"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Error Message */}
         <AnimatePresence>

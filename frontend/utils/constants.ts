@@ -183,19 +183,6 @@ export const MOCK_SOIL_DATA = {
   },
 };
 
-export const MOCK_MARKET_PRICES = {
-  'Wheat': { pricePerKg: 25, trend: 'Stable' as const },
-  'Rice': { pricePerKg: 35, trend: 'Rising' as const },
-  'Cotton': { pricePerKg: 68, trend: 'Rising' as const },
-  'Sugarcane': { pricePerKg: 3.5, trend: 'Stable' as const },
-  'Lentil': { pricePerKg: 95, trend: 'Rising' as const },
-  'Chickpea': { pricePerKg: 75, trend: 'Stable' as const },
-  'Soybean': { pricePerKg: 55, trend: 'Falling' as const },
-  'Maize': { pricePerKg: 22, trend: 'Stable' as const },
-  'Groundnut': { pricePerKg: 65, trend: 'Rising' as const },
-  'Mustard': { pricePerKg: 70, trend: 'Rising' as const },
-};
-
 // Helper function to get district by name
 export function getDistrictByName(name: string): District | undefined {
   return INDIAN_DISTRICTS.find(

@@ -1,0 +1,59 @@
+{
+  "version": "2.0.0",
+  "model_type": "XGBoost",
+  "accuracy": 0.9886,
+  "accuracy_percentage": 98.86,
+  "cv_mean_accuracy": 0.99,
+  "cv_std": 0.0042,
+  "training_date": "2026-08-01T09:23:39.866292",
+  "hyperparameters": {
+    "learning_rate": 0.05,
+    "max_depth": 7,
+    "n_estimators": 100,
+    "subsample": 0.9
+  },
+  "features": [
+    "N",
+    "P",
+    "K",
+    "temperature",
+    "humidity",
+    "ph",
+    "rainfall"
+  ],
+  "classes": [
+    "apple",
+    "banana",
+    "blackgram",
+    "chickpea",
+    "coconut",
+    "coffee",
+    "cotton",
+    "grapes",
+    "jute",
+    "kidneybeans",
+    "lentil",
+    "maize",
+    "mango",
+    "mothbeans",
+    "mungbean",
+    "muskmelon",
+    "orange",
+    "papaya",
+    "pigeonpeas",
+    "pomegranate",
+    "rice",
+    "watermelon"
+  ],
+  "num_classes": 22,
+  "training_samples": 1760,
+  "validation_samples": 440,
+  "total_samples": 2200,
+  "cross_val_scores": [
+    0.9863636363636363,
+    0.9886363636363636,
+    0.990909090909091,
+    0.9977272727272727,
+    0.9863636363636363
+  ]
+}

@@ -19,7 +19,7 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/dashboard', label: 'Analyze' },
+    { href: '/recommendations', label: 'Get Recommendations' },
     { href: '/history', label: 'History' },
     { href: '/profile', label: 'Profile' },
   ];
@@ -95,7 +95,7 @@ export default function Navbar() {
               transition={{ delay: 0.4 }}
             >
               <Link
-                href="/dashboard"
+                href="/recommendations"
                 className="ml-4 px-6 py-2.5 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 text-white font-semibold rounded-xl shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 hover:scale-105 transition-all duration-300"
               >
                 Get Started
@@ -152,11 +152,11 @@ export default function Navbar() {
                 className="pt-4"
               >
                 <Link
-                  href="/dashboard"
+                  href="/recommendations"
                   onClick={() => setIsOpen(false)}
                   className="block w-full text-center px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold rounded-xl shadow-lg"
                 >
-                  Start Analysis
+                  Get Recommendations
                 </Link>
               </motion.div>
             </div>

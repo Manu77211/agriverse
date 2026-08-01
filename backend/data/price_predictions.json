@@ -1,0 +1,209 @@
+{
+  "Apple": {
+    "current_price": 3332.31,
+    "predicted_price_1y": 3039.67,
+    "price_change_percent": -8.78,
+    "lower_bound": 1621.77,
+    "upper_bound": 4457.57,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Banana": {
+    "current_price": 1549.0,
+    "predicted_price_1y": 1536.38,
+    "price_change_percent": -0.81,
+    "lower_bound": 738.74,
+    "upper_bound": 2334.03,
+    "confidence": "95%",
+    "recommendation": "STABLE"
+  },
+  "Blackgram": {
+    "current_price": 5451.02,
+    "predicted_price_1y": 4665.62,
+    "price_change_percent": -14.41,
+    "lower_bound": 2500.17,
+    "upper_bound": 6831.07,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Chickpea": {
+    "current_price": 4934.11,
+    "predicted_price_1y": 4644.03,
+    "price_change_percent": -5.88,
+    "lower_bound": 2399.05,
+    "upper_bound": 6889.01,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Coconut": {
+    "current_price": 5541.07,
+    "predicted_price_1y": 5118.36,
+    "price_change_percent": -7.63,
+    "lower_bound": 2519.89,
+    "upper_bound": 7716.83,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Coffee": {
+    "current_price": 16166.4,
+    "predicted_price_1y": 15181.21,
+    "price_change_percent": -6.09,
+    "lower_bound": 6900.21,
+    "upper_bound": 23462.22,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Cotton": {
+    "current_price": 9536.28,
+    "predicted_price_1y": 8348.19,
+    "price_change_percent": -12.46,
+    "lower_bound": 4500.25,
+    "upper_bound": 12196.14,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Grapes": {
+    "current_price": 6271.86,
+    "predicted_price_1y": 6085.31,
+    "price_change_percent": -2.97,
+    "lower_bound": 3300.2,
+    "upper_bound": 8870.41,
+    "confidence": "95%",
+    "recommendation": "STABLE"
+  },
+  "Jute": {
+    "current_price": 3898.84,
+    "predicted_price_1y": 3580.5,
+    "price_change_percent": -8.16,
+    "lower_bound": 1731.06,
+    "upper_bound": 5429.95,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Kidneybeans": {
+    "current_price": 4709.36,
+    "predicted_price_1y": 4520.08,
+    "price_change_percent": -4.02,
+    "lower_bound": 1961.73,
+    "upper_bound": 7078.43,
+    "confidence": "95%",
+    "recommendation": "STABLE"
+  },
+  "Lentil": {
+    "current_price": 5988.79,
+    "predicted_price_1y": 5689.43,
+    "price_change_percent": -5.0,
+    "lower_bound": 2844.11,
+    "upper_bound": 8534.75,
+    "confidence": "95%",
+    "recommendation": "STABLE"
+  },
+  "Maize": {
+    "current_price": 2135.28,
+    "predicted_price_1y": 1876.43,
+    "price_change_percent": -12.12,
+    "lower_bound": 1064.6,
+    "upper_bound": 2688.25,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Mango": {
+    "current_price": 2774.14,
+    "predicted_price_1y": 2610.47,
+    "price_change_percent": -5.9,
+    "lower_bound": 1442.52,
+    "upper_bound": 3778.42,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Mothbeans": {
+    "current_price": 3637.48,
+    "predicted_price_1y": 3479.61,
+    "price_change_percent": -4.34,
+    "lower_bound": 1902.4,
+    "upper_bound": 5056.83,
+    "confidence": "95%",
+    "recommendation": "STABLE"
+  },
+  "Mungbean": {
+    "current_price": 4463.65,
+    "predicted_price_1y": 4017.84,
+    "price_change_percent": -9.99,
+    "lower_bound": 2064.08,
+    "upper_bound": 5971.6,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Muskmelon": {
+    "current_price": 2610.63,
+    "predicted_price_1y": 2540.06,
+    "price_change_percent": -2.7,
+    "lower_bound": 1375.25,
+    "upper_bound": 3704.87,
+    "confidence": "95%",
+    "recommendation": "STABLE"
+  },
+  "Orange": {
+    "current_price": 2121.24,
+    "predicted_price_1y": 1999.83,
+    "price_change_percent": -5.72,
+    "lower_bound": 1092.74,
+    "upper_bound": 2906.91,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Papaya": {
+    "current_price": 2407.44,
+    "predicted_price_1y": 2066.53,
+    "price_change_percent": -14.16,
+    "lower_bound": 1122.03,
+    "upper_bound": 3011.04,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Pigeonpeas": {
+    "current_price": 5873.86,
+    "predicted_price_1y": 5603.34,
+    "price_change_percent": -4.61,
+    "lower_bound": 2528.99,
+    "upper_bound": 8677.69,
+    "confidence": "95%",
+    "recommendation": "STABLE"
+  },
+  "Pomegranate": {
+    "current_price": 9070.18,
+    "predicted_price_1y": 8438.77,
+    "price_change_percent": -6.96,
+    "lower_bound": 4522.94,
+    "upper_bound": 12354.6,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Rice": {
+    "current_price": 2696.2,
+    "predicted_price_1y": 2498.58,
+    "price_change_percent": -7.33,
+    "lower_bound": 1287.12,
+    "upper_bound": 3710.04,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  },
+  "Watermelon": {
+    "current_price": 1570.2,
+    "predicted_price_1y": 1506.55,
+    "price_change_percent": -4.05,
+    "lower_bound": 776.76,
+    "upper_bound": 2236.33,
+    "confidence": "95%",
+    "recommendation": "STABLE"
+  },
+  "Wheat": {
+    "current_price": 2265.24,
+    "predicted_price_1y": 2088.29,
+    "price_change_percent": -7.81,
+    "lower_bound": 1153.79,
+    "upper_bound": 3022.79,
+    "confidence": "95%",
+    "recommendation": "LOW"
+  }
+}

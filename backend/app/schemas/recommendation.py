@@ -5,9 +5,9 @@ Pydantic models for the crop recommendation pipeline.
 """
 
 from datetime import datetime
-from typing import Optional, List
+from typing import Optional, List, Dict
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 
 class RecommendationRequest(BaseModel):
@@ -40,6 +40,8 @@ class RecommendationRequest(BaseModel):
 
 class CropPrediction(BaseModel):
     """A single crop prediction from the ML model."""
+    
+    model_config = ConfigDict(exclude_none=False, ser_json_schema='never')
 
     crop_name: str
     confidence: float = Field(..., ge=0, le=1, description="Model confidence (0-1)")
@@ -47,6 +49,12 @@ class CropPrediction(BaseModel):
     variety_traits: Optional[List[str]] = None
     expected_price: Optional[float] = None
     profitability_score: Optional[float] = None
+    
+    # 1-Year forecast
+    future_price: Optional[float] = Field(None, description="Predicted price 1-year ahead")
+    future_profit: Optional[float] = Field(None, description="Expected profit 1-year ahead")
+    price_change_percent: Optional[float] = Field(None, description="Price change % (1-year)")
+    price_confidence_range: Optional[Dict[str, float]] = Field(None, description="95% confidence interval")
 
 
 class DerivedMetricsResponse(BaseModel):

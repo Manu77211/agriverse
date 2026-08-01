@@ -37,22 +37,42 @@ export interface MarketPrice {
 
 export interface CropRecommendation {
   cropName: string;
+  confidence: number; // ML model confidence (0-1)
   expectedYieldPerAcre: number; // Quintals
   marketPricePerKg: number; // Rupees
-  expectedProfitPerAcre: number; // Rupees
+  expectedProfitPerAcre?: number; // Rupees (optional)
+  profitability_score?: number; // Alternative profit field
   reasoning: string;
   soilSuitability: number; // 0-100 score
   climateSuitability: number; // 0-100 score
   marketDemand: number; // 0-100 score
   growthDuration: number; // Days
   waterRequirement: 'Low' | 'Medium' | 'High';
+  expected_price?: number; // Mandi price per quintal
+  
+  // 1-Year forecast fields
+  future_price?: number; // Predicted price 1-year ahead (Rupees/kg)
+  future_profit?: number; // Expected profit 1-year ahead (Rupees/acre)
+  price_change_percent?: number; // Price change % (1-year)
+  confidence_range?: {
+    low: number;
+    high: number;
+  }; // 95% confidence interval for forecast
+  recommended_variety?: string; // Biotech variety name
+  variety_traits?: string[]; // Array of variety traits
 }
 
 export interface AnalysisInput {
-  district: string;
   state: string;
+  district: string;
   acres: number;
-  season?: 'Kharif' | 'Rabi' | 'Zaid';
+  nitrogen?: number;
+  phosphorus?: number;
+  potassium?: number;
+  pH?: number;
+  temperature?: number;
+  humidity?: number;
+  rainfall?: number;
 }
 
 export interface AnalysisResult {

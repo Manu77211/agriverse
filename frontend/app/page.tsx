@@ -64,10 +64,10 @@ export default function HomePage() {
   ];
 
   const stats = [
-    { value: '700+', label: 'Districts Covered' },
-    { value: '50+', label: 'Crop Varieties' },
-    { value: '99%', label: 'Accuracy Rate' },
-    { value: '24/7', label: 'AI Availability' },
+    { value: '22', label: 'Crop Varieties' },
+    { value: '15', label: 'Indian States' },
+    { value: '99%', label: 'Model Accuracy' },
+    { value: '2s', label: 'Response Time' },
   ];
 
   return (
@@ -108,7 +108,7 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
             >
-              <Link href="/dashboard">
+              <Link href="/recommendations">
                 <AnimatedButton variant="primary" size="lg">
                   Start Crop Analysis
                   <ArrowRight className="w-5 h-5" />
@@ -136,8 +136,8 @@ export default function HomePage() {
                       <Sun className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-gray-800">21°C</p>
-                      <p className="text-sm text-gray-500">Temperature</p>
+                      <p className="text-2xl font-bold text-gray-800">25°C</p>
+                      <p className="text-sm text-gray-500">Optimal Temp</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 p-4 rounded-xl bg-blue-50/50">
@@ -145,8 +145,8 @@ export default function HomePage() {
                       <Droplets className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-gray-800">65%</p>
-                      <p className="text-sm text-gray-500">Humidity</p>
+                      <p className="text-2xl font-bold text-gray-800">70%</p>
+                      <p className="text-sm text-gray-500">Ideal Humidity</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 p-4 rounded-xl bg-amber-50/50">
@@ -154,8 +154,8 @@ export default function HomePage() {
                       <LineChart className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <p className="text-2xl font-bold text-gray-800">₹67K</p>
-                      <p className="text-sm text-gray-500">Profit/Acre</p>
+                      <p className="text-2xl font-bold text-gray-800">₹26K</p>
+                      <p className="text-sm text-gray-500">Avg Profit/Acre</p>
                     </div>
                   </div>
                 </div>
@@ -354,7 +354,7 @@ export default function HomePage() {
               Get AI-powered crop recommendations tailored to your exact location, 
               soil conditions, and market trends. Start farming smarter today.
             </p>
-            <Link href="/dashboard">
+            <Link href="/recommendations">
               <AnimatedButton variant="ghost" size="lg" className="!bg-white !text-green-600 hover:!bg-white/90">
                 Start Free Analysis
                 <ArrowRight className="w-5 h-5" />
