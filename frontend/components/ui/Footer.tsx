@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Leaf, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import { Leaf, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -69,14 +69,6 @@ export default function Footer() {
             
             {/* Contact Info */}
             <div className="space-y-3">
-              <a href="mailto:support@krishisakhi.in" className="flex items-center gap-3 text-gray-400 hover:text-green-400 transition-colors">
-                <Mail className="w-5 h-5" />
-                support@krishisakhi.in
-              </a>
-              <a href="tel:+911800123456" className="flex items-center gap-3 text-gray-400 hover:text-green-400 transition-colors">
-                <Phone className="w-5 h-5" />
-                1800-123-456 (Toll Free)
-              </a>
               <div className="flex items-center gap-3 text-gray-400">
                 <MapPin className="w-5 h-5" />
                 Bengaluru, Karnataka, India
