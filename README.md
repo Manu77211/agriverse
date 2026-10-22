@@ -384,4 +384,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 **Krishi Sakhi** – Empowering Indian farmers with AI-driven insights since 2024.
 
-*For support, contact: [Your Contact Information]*
+
